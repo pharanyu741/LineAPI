@@ -15,9 +15,8 @@ app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
-    reply(reply_token, msg)
     exchangeRate(msg)
-
+    reply(reply_token, msg)
     res.sendStatus(200)
 })
 
@@ -27,7 +26,7 @@ function exchangeRate(msg) {
     .then(response => {
         // let result = response.data.rate[USD]
         // let rate = result * msg
-        console.log(response.body);
+        console.log(response);
     })
     .catch(error => {
         console.log(error);
