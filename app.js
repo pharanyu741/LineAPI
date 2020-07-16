@@ -24,8 +24,8 @@ app.post('/webhook', (req, res) => {
 function exchangeRate(msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
-        let result = response.data.rates[USD]
-        let rate = result * msg
+        let euroBase = 1/response.data.rates['THB']
+        let rate = euroBase * response.data.rates['USD']
         console.log(rate);
     })
     .catch(error => {
