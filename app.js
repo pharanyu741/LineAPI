@@ -29,6 +29,9 @@ function exchangeRate(msg) {
         let rate = result * msg
         console.log(rate);
     })
+    .catch(error => {
+        console.log(error);
+    })
 }
 
 function reply(reply_token, msg) {
