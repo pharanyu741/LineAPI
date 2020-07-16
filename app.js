@@ -12,19 +12,21 @@ const LINE_HEADER = {
 const fixer = require("fixer-api");
 fixer.set({accessKey: "0ce347832d173f2f35790ef8ae0b527f"})
 
+
+
 app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
     reply(reply_token, msg)
     res.sendStatus(200)
-    const data = await fixer.latest({ base: "USD", symbols: ["CHF"] });
-    console.log(data);
-
 })
 
 /* FUNCTIONS */
 function reply(reply_token, msg) {
+    let data = await fixer.latest({ base: "USD", symbols: ["CHF"] });
+    console.log(data);
+
     let body = JSON.stringify({
         replyToken: reply_token,
         messages: [{
