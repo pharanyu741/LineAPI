@@ -4,7 +4,7 @@ const app = express()
 // const bodyParser = require('body-parser')
 const port = process.env.PORT || 4000
 
-app.post('/webhook', (req, res) => res.sendStatus(200))
+app.post('/webhook', (res) => res.sendStatus(200))
 app.listen(port)
 
 // app.post('/webhook', (req, res) => {
