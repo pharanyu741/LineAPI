@@ -3,8 +3,15 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 const port = process.env.PORT || 4000
+const LINE_MESSAGING_API = 'https://api.line.me/v2/bot/message/reply';
+const LINE_HEADER = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer {jhfNrA/i4anorqWcZXFexfXBzehsU8srKgjTTXPVPQvlAjDk5/JBehz+fLidbgRGZ4nUZxUIxGY0lu5SvUKnZBxLRPCX1iiwm7Q4OzWNREUUWWyBkpXMG3f0knk5VrDJIGWYhrHu/GeuuWUAFTvTawdB04t89/1O/w1cDnyilFU=}'
+  };
 
-app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.urlencoded({
+//      extended: false 
+//     }))
 app.use(bodyParser.json())
 
 app.post('/webhook', (req, res) => {
@@ -13,12 +20,8 @@ app.post('/webhook', (req, res) => {
     reply(reply_token, msg)
     res.sendStatus(200)
 })
-app.listen(port)
+
 function reply(reply_token, msg) {
-    let headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer {jhfNrA/i4anorqWcZXFexfXBzehsU8srKgjTTXPVPQvlAjDk5/JBehz+fLidbgRGZ4nUZxUIxGY0lu5SvUKnZBxLRPCX1iiwm7Q4OzWNREUUWWyBkpXMG3f0knk5VrDJIGWYhrHu/GeuuWUAFTvTawdB04t89/1O/w1cDnyilFU=}'
-    }
     let body = JSON.stringify({
         replyToken: reply_token,
         messages: [{
@@ -27,10 +30,12 @@ function reply(reply_token, msg) {
         }]
     })
     request.post({
-        url: 'https://api.line.me/v2/bot/message/reply',
-        headers: headers,
+        url: LINE_MESSAGING_API,
+        headers: LINE_HEADER,
         body: body
     }, (err, res, body) => {
         console.log('status = ' + res.statusCode);
     });
 }
+
+app.listen(port)
