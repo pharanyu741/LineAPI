@@ -24,9 +24,9 @@ app.post('/webhook', (req, res) => {
 function exchangeRate(msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
-        // let result = response.data.rate[USD]
-        // let rate = result * msg
-        console.log(response);
+        let result = response.data.rate["USD"]
+        let rate = result * msg
+        console.log(rate);
     })
     .catch(error => {
         console.log(error);
@@ -45,7 +45,7 @@ function reply(reply_token, msg) {
         url: LINE_MESSAGING_API,
         headers: LINE_HEADER,
         body: body
-    }, (err, res, body) => {
+    }, (res) => {
         console.log('status = ' + res.statusCode);
     });
 }
