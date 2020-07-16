@@ -24,7 +24,7 @@ app.post('/webhook', (req, res) => {
 
 /* FUNCTIONS */
 function reply(reply_token, msg) {
-    let data = await fixer.latest({ base: "USD", symbols: ["CHF"] });
+    let data = fixer.latest({ base: "USD", symbols: ["CHF"] });
     console.log(data);
 
     let body = JSON.stringify({
