@@ -26,7 +26,9 @@ function exchangeRate(msg) {
     .then(response => {
         let euroBase = 1/response.data.rates['USD']
         let rate = euroBase * response.data.rates['THB']
-        console.log(rate);
+        let sum = rate*msg
+        
+        console.log(sum);
     })
     .catch(error => {
         console.log(error);
