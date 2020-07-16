@@ -1,28 +1,34 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+const request = require('request')
 const app = express()
-// const request = require('request')
-// const bodyParser = require('body-parser')
 const port = process.env.PORT || 4000
-
-app.post('/webhook', (res) => res.sendStatus(200))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.post('/webhook', (req, res) => {
+    let reply_token = req.body.events[0].replyToken
+    let msg = req.body.events[0].message.text
+    reply(reply_token, msg)
+    res.sendStatus(200)
+})
 app.listen(port)
-
-// app.post('/webhook', (req, res) => {
-//     let replyToken = req.body.events[0].replyToken;
-//     let msg = req.body.events[0].message.text;
-        
-//     console.log(`Message token : ${ replyToken }`);
-//     console.log(`Message from chat : ${ msg }`);
-
-//     res.json({
-//         status: 200,
-//         message: `Webhook is working!`
-//     });
-// })
-
-// app.get('/', (req, res) => {
-//     res.send("hello world")
-// })
-
-/* PORT */
-app.listen(port)
+function reply(reply_token, msg) {
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer {xxxxxxx}'
+    }
+    let body = JSON.stringify({
+        replyToken: reply_token,
+        messages: [{
+            type: 'text',
+            text: msg
+        }]
+    })
+    request.post({
+        url: 'https://api.line.me/v2/bot/message/reply',
+        headers: headers,
+        body: body
+    }, (err, res, body) => {
+        console.log('status = ' + res.statusCode);
+    });
+}
