@@ -16,20 +16,28 @@ app.post('/webhook', (req, res) => {
     let event = req.body.events[0];
     let token = event.replyToken
     let msg = event.message.text
-    switch (event.type) {
-        case message:
-            if(event.message.type === 'text') {
-                if(!isNaN(msg)) {
-                    exchangeRate(token, msg)
-                }else{
-                    let res = "ระบุเป็นตัวเลข"
-                    reply(token, res)
-                }
-            }
-            break;
+    // switch (event.type) {
+    //     case message:
+    //         if(event.message.type === 'text') {
+    //             if(!isNaN(msg)) {
+    //                 exchangeRate(token, msg)
+    //             }else{
+    //                 let res = "ระบุเป็นตัวเลข"
+    //                 reply(token, res)
+    //             }
+    //         }
+    //         break;
     
-        default:
-            break;
+    //     default:
+    //         break;
+    // }
+    if(event.message.type === 'text') {
+        if(!isNaN(msg)) {
+            exchangeRate(token, msg)
+        }else{
+            let res = "ระบุเป็นตัวเลข"
+            reply(token, res)
+        }
     }
 
     // exchangeRate(token, msg)
