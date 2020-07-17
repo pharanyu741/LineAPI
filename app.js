@@ -24,7 +24,7 @@ app.post('/webhook', (req, res) => {
             reply(token, res)
         }
     }
-    let newMsg = mag.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+    let newMsg = msg.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
     console.log(newMsg);
     res.sendStatus(200)
 })
