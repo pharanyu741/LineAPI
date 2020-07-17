@@ -24,15 +24,16 @@ app.post('/webhook', (req, res) => {
             reply(token, res)
         }
     }
-    let newMsg = msg.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
-    console.log(newMsg);
+    // console.log(newMsg);
+    splitStr(msg)
     res.sendStatus(200)
 })
 
 /* FUNCTIONS */
-function replacer(match, p1, p2, p3, offset, string) {
-    // p1 is nondigits, p2 digits, and p3 non-alphanumerics
-    return [p1, p2, p3].join(' - ');
+function splitStr(msg) {
+    let newMs = msg.split(" ")
+    console.log(newMs); 
+}
 
 function exchangeRate(token, msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
