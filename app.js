@@ -36,7 +36,7 @@ function exchangeRate(token, msg) {
         let num = newMs[0]
         let currency = newMs[1]
         // exchangeRate
-        let euroBase = 1/response.data.rates[currency]
+        let euroBase = 1/response.data.rates[currency.toUpperCase()]
         let rate = euroBase * response.data.rates['THB']
         let sum = rate*num
         let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
