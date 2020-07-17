@@ -34,7 +34,7 @@ function exchangeRate(token, msg) {
         let newMs = msg.split(" ")
         if(newMs[0]&&newMs[1]&&!newMs[2]) {
             let num = newMs[0]
-            if(!isNan(num)) {
+            if(isNan(num) === false) {
                 let currency = newMs[1].toUpperCase()
                 let euroBase = 1/response.data.rates[currency]
                 if(euroBase) {
