@@ -38,7 +38,7 @@ function exchangeRate(token, msg) {
                 if(!isNaN(euroBase)) {
                     let rate = euroBase * response.data.rates['THB']
                     let sum = rate*num
-                    let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
+                    let res = "แปลงสกุลเงิน "+currency+"\nเป็นเงิน "+sum.toFixed(2)+" บาท";
                     reply(token, res)
                 }else {let res = "สกุลเงินไม่ถูกต้อง\nตัวอย่าง 1 USD"
                 reply(token, res)
