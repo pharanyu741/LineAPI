@@ -29,7 +29,7 @@ app.post('/webhook', (req, res) => {
     // let msg = req.body.events[0].message.text
     let token = event.replyToken
     let msg = event.message.text
-    exchangeRate(msg)
+    // exchangeRate(msg)
     reply(token, msg)
     res.sendStatus(200)
 })
