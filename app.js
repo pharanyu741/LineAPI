@@ -20,7 +20,7 @@ app.post('/webhook', (req, res) => {
     if(event.message.type === 'text') {
         exchangeRate(token, msg)
     }else{
-        let res = "กรุณาระบุจำนวนเงินและสกุลเงิน"+"(Ex.) '1 USD'"
+        let res = "กรุณาระบุจำนวนและสกุลเงิน\nตัวอย่าง 1 USD"
         reply(token, res)
     }
     res.sendStatus(200)
@@ -35,13 +35,13 @@ function exchangeRate(token, msg) {
         let num = newMs[0]
         let currency = newMs[1].toUpperCase()
         let euroBase = 1/response.data.rates[currency]
-        if(newMs&&euroBase) {
+        if(euroBase&&currency) {
             let rate = euroBase * response.data.rates['THB']
             let sum = rate*num
             let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
         reply(token, res)
         }else{
-            let res = "กรุณาระบุจำนวนเงินและสกุลเงิน"+"(Ex.) '1 USD'"
+            let res = "กรุณาระบุจำนวนและสกุลเงิน\nตัวอย่าง 1 USD"
             reply(token, res)
         }
     })
