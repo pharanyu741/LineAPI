@@ -38,7 +38,7 @@ function exchangeRate(token, msg) {
             if(!isNaN(num)) {
                 let currency = newMs[1].toUpperCase()
                 let euroBase = 1/response.data.rates[currency]
-                if(isNaN(euroBase)) {
+                if(!isNaN(euroBase)) {
                     if(euroBase) {
                         let rate = euroBase * response.data.rates['THB']
                         let sum = rate*num
