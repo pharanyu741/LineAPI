@@ -16,7 +16,6 @@ app.post('/webhook', (req, res) => {
     let event = req.body.events[0];
     let token = event.replyToken
     let msg = event.message.text
-
     if(event.message.type === 'text') {
         exchangeRate(token, msg)
     }else{
@@ -27,14 +26,12 @@ app.post('/webhook', (req, res) => {
 })
 
 /* FUNCTIONS */
-
 function exchangeRate(token, msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
         let newMs = msg.split(" ")
         if(newMs[0]&&newMs[1]&&!newMs[2]) {
             let num = newMs[0]
-            console.log(num+" test !!!!!!!!");
             if(!isNaN(num)) {
                 let currency = newMs[1].toUpperCase()
                 let euroBase = 1/response.data.rates[currency]
