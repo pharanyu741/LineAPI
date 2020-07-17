@@ -32,17 +32,17 @@ function exchangeRate(token, msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
         let newMs = msg.split(" ")
-        let num = newMs[0]
-        let currency = newMs[1].toUpperCase()
-        let euroBase = 1/response.data.rates[currency]
         if(newMs <= newMs[2]) {
+            let num = newMs[0]
             if(num === number) {
+                let currency = newMs[1].toUpperCase()
+                let euroBase = 1/response.data.rates[currency]
                 if(euroBase) {
                     let rate = euroBase * response.data.rates['THB']
                     let sum = rate*num
                     let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
                     reply(token, res)
-                    
+
                 }else {let res = "ไม่พบสกุลเงิน "+currency
                 reply(token, res)
                 }
