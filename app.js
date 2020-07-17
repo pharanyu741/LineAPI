@@ -14,15 +14,13 @@ const LINE_HEADER = {
 app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let event = req.body.event[0]
-    let token = event.replyToken
-    let msg = event.message.text
-    reply(token, msg)
-    res.sendStatus(200)
-    
     switch (event.type) {
         case 'message':
             if(event.message.type === 'text') {
-
+                let token = event.replyToken
+                let msg = event.message.text
+                exchangeRate(msg)
+                reply(token, msg)
             }
             
         break;
@@ -31,7 +29,8 @@ app.post('/webhook', (req, res) => {
     // let token = req.body.events[0].replyToken
     // let msg = req.body.events[0].message.text
     // exchangeRate(msg)
-    
+    // reply(token, msg)
+    res.sendStatus(200)
 })
 
 /* FUNCTIONS */
