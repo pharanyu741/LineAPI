@@ -35,15 +35,19 @@ function exchangeRate(token, msg) {
         let num = newMs[0]
         let currency = newMs[1].toUpperCase()
         let euroBase = 1/response.data.rates[currency]
-        if(euroBase&&currency&&num&&num === number) {
-            let rate = euroBase * response.data.rates['THB']
-            let sum = rate*num
-            let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
+        if(newMs <= newMs[2]) {
+            if(num === number) {
+                if(euroBase) {
+                    let rate = euroBase * response.data.rates['THB']
+                    let sum = rate*num
+                    let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
+                    reply(token, res)
+                }else let res = "ไม่พบสกุลเงิน "+currency
+                reply(token, res)
+            }else let res = "กรุณาระบุจำนวนเป็นตัวเลข\nตัวอย่าง 1 USD"
             reply(token, res)
-        }else{
-            let res = "กรุณาระบุจำนวนและสกุลเงิน\nตัวอย่าง 1 USD"
-            reply(token, res)
-        }
+        }else let res = "กรุณาระบุจำนวนและสกุลเงิน\nตัวอย่าง 1 USD"
+        reply(token, res)
     })
     .catch(error => {
         console.log(error);
