@@ -13,7 +13,6 @@ const LINE_HEADER = {
 /*/*/
 app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
-    let event = req.body.event[0]
     // switch (event.type) {
     //     case 'message':
     //         if(event.message.type === 'text') {
@@ -27,32 +26,30 @@ app.post('/webhook', (req, res) => {
     // }
     let token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
-    console.log(event)
-    exchangeRate(msg)
-    reply(token, msg)
+    exchangeRate(token, msg)
     res.sendStatus(200)
 })
 
 /* FUNCTIONS */
-function exchangeRate(msg) {
+function exchangeRate(token, msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
         let euroBase = 1/response.data.rates['USD']
         let rate = euroBase * response.data.rates['THB']
         let sum = rate*msg
-        console.log(sum);
+        reply(token, sum)
     })
     .catch(error => {
         console.log(error);
     })
 }
 
-function reply(token, msg) {
+function reply(token, sum) {
     let body = JSON.stringify({
         replyToken: token,
         messages: [{
             type: 'text',
-            text: msg
+            text: sum
         }]
     })
     request.post({
