@@ -31,17 +31,19 @@ app.post('/webhook', (req, res) => {
 function exchangeRate(token, msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
-        // splitStr
         let newMs = msg.split(" ")
         let num = newMs[0]
         let currency = newMs[1].toUpperCase()
-
-        // exchangeRate
         let euroBase = 1/response.data.rates[currency]
+        if(euroBase) {
         let rate = euroBase * response.data.rates['THB']
         let sum = rate*num
         let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
         reply(token, res)
+        }else{
+            let res = "กรุณาระบุจำนวนเงินและสกุลเงิน"+"(Ex.) '1 USD'"
+            reply(token, res)
+        }
     })
     .catch(error => {
         console.log(error);
