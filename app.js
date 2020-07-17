@@ -24,8 +24,23 @@ app.post('/webhook', (req, res) => {
             
     //     break;
     // }
+    let event = req.body.events[0];
+    let tt = event.message.text
+    console.log(tt);
     let token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
+    // let typ = req.body.events[0].message.type
+    // switch (typ) {
+    //     case text:
+    //         if() {
+
+    //         }
+    //         break;
+    
+    //     default:
+    //         break;
+    // }
+
     exchangeRate(token, msg)
     res.sendStatus(200)
 })
