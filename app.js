@@ -49,7 +49,7 @@ function reply(token, sum) {
         replyToken: token,
         messages: [{
             type: 'text',
-            text: sum
+            text: (sum, "บาท")
         }]
     })
     request.post({
