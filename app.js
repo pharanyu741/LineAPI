@@ -45,7 +45,7 @@ function exchangeRate(token, msg) {
 }
 
 function reply(token, sum) {
-    let msg = sum+"บาท"
+    let msg = "เป็นเงิน "+sum.toFixed(2)+" บาท";
     let body = JSON.stringify({
         replyToken: token,
         messages: [{
