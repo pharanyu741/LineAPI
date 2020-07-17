@@ -42,12 +42,16 @@ function exchangeRate(token, msg) {
                     let sum = rate*num
                     let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
                     reply(token, res)
-                }else let res = "ไม่พบสกุลเงิน "+currency
+                    
+                }else {let res = "ไม่พบสกุลเงิน "+currency
                 reply(token, res)
-            }else let res = "กรุณาระบุจำนวนเป็นตัวเลข\nตัวอย่าง 1 USD"
+                }
+            }else {let res = "กรุณาระบุจำนวนเป็นตัวเลข\nตัวอย่าง 1 USD"
             reply(token, res)
-        }else let res = "กรุณาระบุจำนวนและสกุลเงิน\nตัวอย่าง 1 USD"
+            }
+        }else {let res = "กรุณาระบุจำนวนและสกุลเงิน\nตัวอย่าง 1 USD"
         reply(token, res)
+        }
     })
     .catch(error => {
         console.log(error);
