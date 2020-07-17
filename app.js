@@ -19,7 +19,7 @@ app.post('/webhook', (req, res) => {
     switch (event.type) {
         case message:
             if(event.message.type === 'text') {
-                if(!isNaN(mag)) {
+                if(!isNaN(msg)) {
                     exchangeRate(token, msg)
                 }else{
                     let res = "ระบุเป็นตัวเลข"
