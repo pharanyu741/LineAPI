@@ -16,19 +16,23 @@ app.post('/webhook', (req, res) => {
     let event = req.body.events[0];
     let token = event.replyToken
     let msg = event.message.text
-    // let typ = req.body.events[0].message.type
-    // switch (typ) {
-    //     case text:
-    //         if() {
-
-    //         }
-    //         break;
+    switch (event.type) {
+        case message:
+            if(event.message.type === 'text') {
+                if(!isNaN(mag)) {
+                    exchangeRate(token, msg)
+                }else{
+                    let res = "ระบุเป็นตัวเลข"
+                    reply(token, res)
+                }
+            }
+            break;
     
-    //     default:
-    //         break;
-    // }
+        default:
+            break;
+    }
 
-    exchangeRate(token, msg)
+    // exchangeRate(token, msg)
     res.sendStatus(200)
 })
 
@@ -39,20 +43,20 @@ function exchangeRate(token, msg) {
         let euroBase = 1/response.data.rates['USD']
         let rate = euroBase * response.data.rates['THB']
         let sum = rate*msg
-        reply(token, sum)
+        let res = "เป็นเงิน "+sum.toFixed(2)+" บาท";
+        reply(token, res)
     })
     .catch(error => {
         console.log(error);
     })
 }
 
-function reply(token, sum) {
-    let msg = "เป็นเงิน "+sum.toFixed(2)+" บาท";
+function reply(token, res) {
     let body = JSON.stringify({
         replyToken: token,
         messages: [{
             type: 'text',
-            text: msg
+            text: res
         }]
     })
     request.post({
