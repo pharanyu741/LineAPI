@@ -45,11 +45,12 @@ function exchangeRate(token, msg) {
 }
 
 function reply(token, sum) {
+    let msg = sum+"บาท"
     let body = JSON.stringify({
         replyToken: token,
         messages: [{
             type: 'text',
-            text: (sum, "บาท")
+            text: msg
         }]
     })
     request.post({
