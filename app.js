@@ -32,7 +32,7 @@ function exchangeRate(token, msg) {
     axios.get('http://data.fixer.io/api/latest?access_key=0ce347832d173f2f35790ef8ae0b527f&format=1')
     .then(response => {
         let newMs = msg.split(" ")
-        if(newMs <= newMs[2]) {
+        if(newMs[0]&&newMs[1]&&!newMs[2]) {
             let num = newMs[0]
             if(num === number) {
                 let currency = newMs[1].toUpperCase()
