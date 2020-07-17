@@ -16,31 +16,16 @@ app.post('/webhook', (req, res) => {
     let event = req.body.events[0];
     let token = event.replyToken
     let msg = event.message.text
-    // switch (event.type) {
-    //     case message:
-    //         if(event.message.type === 'text') {
-    //             if(!isNaN(msg)) {
-    //                 exchangeRate(token, msg)
-    //             }else{
-    //                 let res = "ระบุเป็นตัวเลข"
-    //                 reply(token, res)
-    //             }
-    //         }
-    //         break;
-    
-    //     default:
-    //         break;
-    // }
     if(event.message.type === 'text') {
         if(!isNaN(msg)) {
             exchangeRate(token, msg)
         }else{
-            let res = "ระบุเป็นตัวเลข"
+            let res = "กรุณาระบุ จำนวนเงินเป็นตัวเลขเท่านั้น"
             reply(token, res)
         }
     }
-
-    // exchangeRate(token, msg)
+    let newMsg = mag.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+    console.log(newMsg);
     res.sendStatus(200)
 })
 
