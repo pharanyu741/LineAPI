@@ -38,13 +38,17 @@ function exchangeRate(token, msg) {
             if(!isNaN(num)) {
                 let currency = newMs[1].toUpperCase()
                 let euroBase = 1/response.data.rates[currency]
-                if(euroBase) {
-                    let rate = euroBase * response.data.rates['THB']
-                    let sum = rate*num
-                    let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
+                if(isNaN(euroBase)) {
+                    if(euroBase) {
+                        let rate = euroBase * response.data.rates['THB']
+                        let sum = rate*num
+                        let res = "แปลงสกุลเงิน"+currency+"เป็นเงิน "+sum.toFixed(2)+" บาท";
+                        reply(token, res)
+    
+                    }else {let res = "ไม่พบสกุลเงิน "+currency
                     reply(token, res)
-
-                }else {let res = "ไม่พบสกุลเงิน "+currency
+                    }
+                }else {let res = "สกุลเงินไม่ถูกต้อง\nตัวอย่าง 1 USD"
                 reply(token, res)
                 }
             }else {let res = "กรุณาระบุจำนวนเป็นตัวเลข\nตัวอย่าง 1 USD"
